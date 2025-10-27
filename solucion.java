@@ -17,6 +17,7 @@ class Partition{
         this.parents = new HashMap<Integer, Integer>();
         this.sizes = new HashMap<Integer, Integer>();
         this.partition = new HashSet<Set<Integer>>();
+        this.partitionSize = size;
         for (int i = 1; i <= size; i++) {
             parents.put(i, i);
             sizes.put(i,1);
@@ -24,7 +25,6 @@ class Partition{
             singleton.add(i);
             partition.add(singleton);
         }
-        this.partitionSize = partition.size(); 
     }
 
     public int find(int e){
@@ -46,6 +46,7 @@ class Partition{
             parents.put(root2, root1);
             sizes.put(root1, sizes.get(root1) + 1);
         }
+        this.partitionSize--;
     }
 
     public void refrescarParticion() {
@@ -71,41 +72,47 @@ class Orchestrator {
         this.respuesta = new ArrayList<Integer>();
     }
 
-    public Integer nuevaConexion(int e1, int e2, int cable) {
+    public Integer esRedundante(int e1, int e2, int cable) {
+        if(fibra.partitionSize == 1 && coaxial.partitionSize == 1) return 1;
         if (cable == 1){ // es firba
-            if (fibra.find(e1) != fibra.find(e2)){
+            if (fibra.find(e1) != fibra.find(e2)) {
                 fibra.union(e1, e2);
-                return redundante(fibra, coaxial);
+                return compararParticion(fibra, coaxial);
             }
             else {
-                return respuesta.getLast();
+                if (respuesta.isEmpty()) return 0;
+                else return respuesta.getLast();
             }
         }
         else {
             if (coaxial.find(e1) != coaxial.find(e2)){
                 coaxial.union(e1, e2);
-                return redundante(fibra, coaxial);
+                return compararParticion(fibra, coaxial);
             }
             else {
-                return respuesta.getLast();
+                if (respuesta.isEmpty()) return 0;
+                else return respuesta.getLast();
             }
         }
     }
 
-    public Integer redundante(Partition fibra, Partition coaxial) {
-        fibra.refrescarParticion();
-        coaxial.refrescarParticion();
-        if (fibra.partition.size() != coaxial.partition.size()) {
-            respuesta.add(0);
-            return 0;
+    public Integer compararParticion(Partition fibra, Partition coaxial) {
+        if (fibra.partitionSize == coaxial.partitionSize) {
+            fibra.refrescarParticion();
+            coaxial.refrescarParticion();
+            if (fibra.partition.size() != coaxial.partition.size()) {
+                respuesta.add(0);
+                return 0;
+            }
+            if (fibra.partition.equals(coaxial.partition)) {
+                respuesta.add(1);
+                return 1;
+            } else {
+                respuesta.add(0);
+                return 0;
+            }
         }
-        if (fibra.partition.equals(coaxial.partition)) {
-            respuesta.add(1);
-            return 1;
-        } else {
-            respuesta.add(0);
-            return 0;
-        }
+        return 0;
     }
 
     public class Main {
@@ -128,7 +135,7 @@ class Orchestrator {
                         int j = sc.nextInt();
                         int k = sc.nextInt();
 
-                        Integer r = orch.nuevaConexion(i, j, k);
+                        Integer r = orch.esRedundante(i, j, k);
                         resultados.add(r);
                     }
 

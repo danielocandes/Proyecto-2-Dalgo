@@ -119,7 +119,7 @@ class Orchestrator {
 
         public static void main(String[] args) {
             try {
-                File archivo = new File("input.txt");
+                File archivo = new File("estructurada30conexiones.txt");
                 Scanner sc = new Scanner(archivo);
 
                 int T = sc.nextInt(); 

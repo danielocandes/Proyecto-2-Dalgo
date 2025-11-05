@@ -118,10 +118,11 @@ class Orchestrator {
                 respuesta.add(0);
                 return 0;
             }
-            if (fibra.partition.equals(coaxial.partition)) {
+            else if (fibra.partition.equals(coaxial.partition)) {
                 respuesta.add(1);
                 return 1;
-            } else {
+            } 
+            else {
                 respuesta.add(0);
                 return 0;
             }

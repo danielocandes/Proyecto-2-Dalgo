@@ -10,17 +10,17 @@ import java.util.Set;
 class Partition{
     public int partitionSize;
     public HashMap<Integer, Integer> parents;
-    public HashMap<Integer, Integer> sizes;
+    public HashMap<Integer, Integer> rank;
     public Set<Set<Integer>> partition;
 
     public Partition(int size){
         this.parents = new HashMap<Integer, Integer>();
-        this.sizes = new HashMap<Integer, Integer>();
+        this.rank = new HashMap<Integer, Integer>();
         this.partition = new HashSet<Set<Integer>>();
         this.partitionSize = size;
         for (int i = 1; i <= size; i++) {
             parents.put(i, i);
-            sizes.put(i,1);
+            rank.put(i,0);
             Set<Integer> singleton = new HashSet<Integer>();
             singleton.add(i);
             partition.add(singleton);
@@ -38,13 +38,13 @@ class Partition{
         int root1 = find(e1);
         int root2 = find(e2);
         if (root1 == root2) return; 
-        if (sizes.get(root1) > sizes.get(root2)) {
+        if (rank.get(root1) > rank.get(root2)) {
             parents.put(root2, root1);
-        } else if (sizes.get(root2) > sizes.get(root1)) {
+        } else if (rank.get(root2) > rank.get(root1)) {
             parents.put(root1, root2);
         } else {
             parents.put(root2, root1);
-            sizes.put(root1, sizes.get(root1) + 1);
+            rank.put(root1, rank.get(root1) + 1);
         }
         this.partitionSize--;
     }
@@ -127,8 +127,11 @@ class Orchestrator {
                 return 0;
             }
         }
-        respuesta.add(0);
-        return 0;
+        else {
+            respuesta.add(0);
+            return 0;
+        }
+       
     }
 
     public class Main {

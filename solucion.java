@@ -80,8 +80,15 @@ class Orchestrator {
                 return compararParticion(fibra, coaxial);
             }
             else {
-                if (respuesta.isEmpty()) return 0;
-                else return respuesta.getLast();
+                if (respuesta.isEmpty()) {
+                    respuesta.add(0);
+                    return 0;
+                }
+                else {
+                    int last = respuesta.getLast();
+                    respuesta.add(last);  
+                    return last;
+                }
             }
         }
         else {
@@ -90,8 +97,15 @@ class Orchestrator {
                 return compararParticion(fibra, coaxial);
             }
             else {
-                if (respuesta.isEmpty()) return 0;
-                else return respuesta.getLast();
+                if (respuesta.isEmpty()) {
+                    respuesta.add(0);
+                    return 0;
+                }
+                else {
+                    int last = respuesta.getLast();
+                    respuesta.add(last);  
+                    return last;
+                }
             }
         }
     }
@@ -112,6 +126,7 @@ class Orchestrator {
                 return 0;
             }
         }
+        respuesta.add(0);
         return 0;
     }
 

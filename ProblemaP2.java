@@ -61,12 +61,12 @@ class Partition{
 
 }
 
-class Orchestrator {
+public class ProblemaP2 {
     private Partition coaxial;
     private Partition fibra;
     private ArrayList<Integer> respuesta;
 
-    public Orchestrator(Integer numeroComputadores) {
+    public ProblemaP2(Integer numeroComputadores) {
         this.coaxial = new Partition(numeroComputadores);
         this.fibra = new Partition(numeroComputadores);;
         this.respuesta = new ArrayList<Integer>();
@@ -134,44 +134,39 @@ class Orchestrator {
        
     }
 
-    public class Main {
+    public static void main(String[] args) {
+        try {
+            File archivo = new File("estructurada30conexiones.txt");
+            Scanner sc = new Scanner(archivo);
 
-        public static void main(String[] args) {
-            try {
-                File archivo = new File("estructurada30conexiones.txt");
-                Scanner sc = new Scanner(archivo);
+            int T = sc.nextInt(); 
 
-                int T = sc.nextInt(); 
+            for (int t = 0; t < T; t++) {
+                int N = sc.nextInt(); 
+                int M = sc.nextInt(); 
+                ProblemaP2 orch = new ProblemaP2(N);
+                ArrayList<Integer> resultados = new ArrayList<>();
 
-                for (int t = 0; t < T; t++) {
-                    int N = sc.nextInt(); 
-                    int M = sc.nextInt(); 
-                    Orchestrator orch = new Orchestrator(N);
-                    ArrayList<Integer> resultados = new ArrayList<>();
+                for (int m = 0; m < M; m++) {
+                    int i = sc.nextInt();
+                    int j = sc.nextInt();
+                    int k = sc.nextInt();
 
-                    for (int m = 0; m < M; m++) {
-                        int i = sc.nextInt();
-                        int j = sc.nextInt();
-                        int k = sc.nextInt();
-
-                        Integer r = orch.esRedundante(i, j, k);
-                        resultados.add(r);
-                    }
-
-                    for (int i = 0; i < resultados.size(); i++) {
-                        System.out.print(resultados.get(i));
-                        if (i < resultados.size() - 1) System.out.print(" ");
-                    }
-                    System.out.println(); 
+                    Integer r = orch.esRedundante(i, j, k);
+                    resultados.add(r);
                 }
 
-                sc.close();
-
-            } catch (FileNotFoundException e) {
-                System.out.println("No se encontró el archivo de entrada.");
-            } catch (Exception e) {
-                e.printStackTrace();
+                for (int i = 0; i < resultados.size(); i++) {
+                    System.out.print(resultados.get(i));
+                    if (i < resultados.size() - 1) System.out.print(" ");
+                }
+                System.out.println(); 
             }
+
+            sc.close();
+            
+        } catch (Exception e) {
+            System.out.println(0);
         }
     }
 

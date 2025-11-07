@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -136,7 +135,7 @@ public class ProblemaP2 {
 
     public static void main(String[] args) {
         try {
-            File archivo = new File("estructurada30conexiones.txt");
+            File archivo = new File("in_l.txt");
             Scanner sc = new Scanner(archivo);
 
             int T = sc.nextInt(); 
@@ -166,6 +165,7 @@ public class ProblemaP2 {
             sc.close();
             
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(0);
         }
     }

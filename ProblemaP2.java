@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -135,37 +137,30 @@ public class ProblemaP2 {
 
     public static void main(String[] args) {
         try {
-            File archivo = new File("in_l.txt");
-            Scanner sc = new Scanner(archivo);
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            int T = Integer.parseInt(br.readLine().trim());
 
-            int T = sc.nextInt(); 
+            while (T-- > 0) {
+                String[] nm = br.readLine().trim().split(" ");
+                int N = Integer.parseInt(nm[0]);
+                int M = Integer.parseInt(nm[1]);
 
-            for (int t = 0; t < T; t++) {
-                int N = sc.nextInt(); 
-                int M = sc.nextInt(); 
                 ProblemaP2 orch = new ProblemaP2(N);
-                ArrayList<Integer> resultados = new ArrayList<>();
+                StringBuilder sb = new StringBuilder();
 
                 for (int m = 0; m < M; m++) {
-                    int i = sc.nextInt();
-                    int j = sc.nextInt();
-                    int k = sc.nextInt();
-
-                    Integer r = orch.esRedundante(i, j, k);
-                    resultados.add(r);
+                    String[] parts = br.readLine().trim().split(" ");
+                    int i = Integer.parseInt(parts[0]);
+                    int j = Integer.parseInt(parts[1]);
+                    int k = Integer.parseInt(parts[2]);
+                    int res = orch.esRedundante(i, j, k);
+                    sb.append(res);
+                    if (m < M - 1) sb.append(" ");
                 }
 
-                for (int i = 0; i < resultados.size(); i++) {
-                    System.out.print(resultados.get(i));
-                    if (i < resultados.size() - 1) System.out.print(" ");
-                }
-                System.out.println(); 
+                System.out.println(sb.toString());
             }
-
-            sc.close();
-            
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println(0);
         }
     }

@@ -1,3 +1,10 @@
+/*
+ *  PROYECTO 2 DISEÑO Y ANÁLISIS DE ALGORITMOS
+ *  TRABAJO REALIZADO POR:
+ *  LUISA MORA (202410347)
+ *  DANIEL OCAMPO (202410656)
+ */
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
